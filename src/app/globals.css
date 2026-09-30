@@ -1,0 +1,139 @@
+@import "tailwindcss";
+
+/* ── Design tokens ───────────────────────────────────────────────────────── */
+@theme {
+  --color-brand: #ff3b00;
+  --color-black: #080808;
+  --color-off-white: #f0ede6;
+  --font-serif: var(--font-instrument);
+  --font-sans: var(--font-inter);
+
+  /* Marquee animations */
+  --animate-marquee-left: marquee-left 35s linear infinite;
+  --animate-marquee-right: marquee-right 28s linear infinite;
+
+  /* Scroll indicator */
+  --animate-scroll-down: scroll-down 1.6s ease-in-out infinite;
+}
+
+/* ── Keyframes ────────────────────────────────────────────────────────────── */
+@keyframes marquee-left {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-33.333%);
+  }
+}
+
+@keyframes marquee-right {
+  0% {
+    transform: translateX(-33.333%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes scroll-down {
+  0% {
+    transform: translateY(-100%);
+  }
+
+  100% {
+    transform: translateY(200%);
+  }
+}
+
+/* ── Base ─────────────────────────────────────────────────────────────────── */
+@layer base {
+  html {
+
+    /* Lenis overrides */
+    &.lenis,
+    &.lenis body {
+      height: auto;
+    }
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+
+    &[data-lenis-prevent] {
+      overscroll-behavior: contain;
+    }
+  }
+
+  /* Allow iframes in footer to receive pointer events */
+  .lenis.lenis-smooth iframe:not([data-lenis-allow]) {
+    pointer-events: none;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  body {
+    cursor: none;
+    overflow-x: hidden;
+    background-color: #080808;
+    color: #f0ede6;
+  }
+
+  /* Hide scrollbar in Chrome/Safari – keep functional */
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #2a2a2a;
+    border-radius: 4px;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+/* ── Utilities ────────────────────────────────────────────────────────────── */
+@layer utilities {
+
+  /* Pause CSS marquee on hover */
+  .marquee-pause-on-hover:hover .marquee-track {
+    animation-play-state: paused;
+  }
+
+  /* Text stroke utility */
+  .text-stroke-1 {
+    -webkit-text-stroke: 1px currentColor;
+    color: transparent;
+  }
+
+  .text-stroke-white {
+    -webkit-text-stroke: 1px #f0ede6;
+  }
+
+  .text-stroke-black {
+    -webkit-text-stroke: 1px #080808;
+  }
+
+  .text-stroke-brand {
+    -webkit-text-stroke: 1px #ff3b00;
+  }
+
+  /* Clip-path reveal mask */
+  .clip-reveal {
+    clip-path: inset(100% 0 0 0);
+  }
+
+  /* GPU layer hint */
+  .will-change-transform {
+    will-change: transform;
+  }
+}
